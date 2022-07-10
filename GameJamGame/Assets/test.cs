@@ -18,5 +18,9 @@ public class test : MonoBehaviour
         mr.material.color = new Color(Random.value, Random.value, Random.value);
         i++;
         transform.Rotate(new Vector3(i, i));
+
+        //jel radi?
+
+        transform.Translate(1, 1, 1);
     }
 }
