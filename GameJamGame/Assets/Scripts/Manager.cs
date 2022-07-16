@@ -29,20 +29,11 @@ public class Manager : MonoBehaviour
     {
         players = new GameObject[numOfPlayers];
 
-        /*
-        players[0] = Instantiate(player, Vector3.down * 5, Quaternion.identity, transform);
-        players[1] = Instantiate(player, Vector3.up * 5, Quaternion.identity, transform);
-        if (numOfPlayers >= 3)
-            players[2] = Instantiate(player, Vector3.right * 5, Quaternion.identity, transform);
-        if (numOfPlayers == 4)
-            players[3] = Instantiate(player, Vector3.left * 5, Quaternion.identity, transform);
-        */
-
         for (int i = 0; i < numOfPlayers; i++)
         {
-            Vector3 playerPos = new Vector3((i - 1) % 2 * -1, (i - 4) % 2 * -1, 0);
+            Vector3 playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, -0.2f);
 
-            players[i] = Instantiate(player, playerPos * 5, Quaternion.identity, transform);
+            players[i] = Instantiate(player, playerPos * 5, Quaternion.Euler(0, 0, 90 + i * 90), transform);
             players[i].gameObject.name = "Player " + i;
         }
     }
