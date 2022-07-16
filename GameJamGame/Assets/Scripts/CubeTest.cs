@@ -15,9 +15,6 @@ public class CubeTest : MonoBehaviour
 
     public void diceRoll()
     {
-        if (transform.childCount != 0)
-            Destroy(this.gameObject.transform.GetChild(0).gameObject);
-
         Instantiate(cubePrefab, Vector3.back * 10, Quaternion.identity, transform);
         rb = transform.GetChild(transform.childCount - 1).GetComponent<Rigidbody>();
 
