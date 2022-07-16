@@ -12,6 +12,7 @@ public class Manager : MonoBehaviour
     private void Start()
     {
         SetUpGame(4);
+        Camera.main.transform.Rotate(new Vector3(0, 0, 90));
     }
 
     private void Update()
@@ -22,6 +23,8 @@ public class Manager : MonoBehaviour
 
             players[currentPlayer % 4].GetComponent<Player>().isOnTurn = true;
             players[(currentPlayer - 1) % 4].GetComponent<Player>().isOnTurn = false;
+
+            Camera.main.transform.Rotate(new Vector3(0, 0, 90));
         }
     }
 

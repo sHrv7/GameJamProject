@@ -37,6 +37,13 @@ public class Player : MonoBehaviour
         {
             mouse.gameObject.SetActive(false);
         }
+
+        if(!isOnTurn)
+            for(int i = 0; i < 3; i++)
+                this.transform.GetChild(i).gameObject.SetActive(false);
+        else
+            for (int i = 0; i < 3; i++)
+                this.transform.GetChild(i).gameObject.SetActive(true);
     }
     void CombineDice()
     {
