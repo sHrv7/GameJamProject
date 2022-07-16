@@ -32,25 +32,10 @@ public class Selector : MonoBehaviour
 
             if (selectedDice != null)
             {
+                selectedDice.GetComponent<Collider>().isTrigger = true;
+                selectedDice.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                selectedDice.GetComponent<Rigidbody>().useGravity = false;
                 selectedDice.transform.position = transform.position + Vector3.back;
-                float xRot = selectedDice.transform.eulerAngles.x;
-                float yRot = selectedDice.transform.eulerAngles.y;
-                float zRot = selectedDice.transform.eulerAngles.z;
-                if (xRot < 45)
-                    xRot = 0;
-                else
-                    xRot = 90;
-                if (yRot < 45)
-                    yRot = 0;
-                else
-                    yRot = 90;
-                if (zRot < 45)
-                    zRot = 0;
-                else
-                    zRot = 90;
-                //izravnata kocka
-                selectedDice.transform.eulerAngles = new Vector3(xRot, yRot, zRot);
-
             }
         }
         else

@@ -12,12 +12,9 @@ public class Slot : MonoBehaviour
     {
         if (other.tag == "Dice")
         {
+            Destroy(currObj);
             currObj = other.gameObject;
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        currObj = null;
     }
     void Update()
     {
@@ -27,8 +24,11 @@ public class Slot : MonoBehaviour
             {
                 currObj.transform.position = transform.position;
 
-                num = currObj.GetComponent<DiceNum>().diceNum;
             }
+
+            if (currObj.TryGetComponent<DiceNum>(out DiceNum dn))
+                num = dn.diceNum;
         }
+
     }
 }
