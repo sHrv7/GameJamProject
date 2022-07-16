@@ -35,6 +35,10 @@ public class Manager : MonoBehaviour
 
             players[i] = Instantiate(player, playerPos * 5, Quaternion.Euler(0, 0, 90 + i * 90), transform);
             players[i].gameObject.name = "Player " + i;
+
+            players[i].gameObject.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         }
+
+        players[0].GetComponent<Player>().isOnTurn = true;
     }
 }

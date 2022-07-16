@@ -213,7 +213,8 @@ MonoBehaviour:
   startHealth: 150
   currHealth: 0
   isOnTurn: 0
-  slots: 
+  slots: []
+  slotValues: 
   spell: {fileID: 0}
   mouse: {fileID: 0}
   stun: 0
