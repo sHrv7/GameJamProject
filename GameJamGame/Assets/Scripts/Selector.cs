@@ -8,6 +8,7 @@ public class Selector : MonoBehaviour
     public Spell selectedCard;
     public GameObject selectedDice;
     public GameObject curr;
+    public GameObject enemyTarget;
     private void OnTriggerEnter(Collider collision)
     {
         curr = collision.gameObject;
@@ -25,19 +26,11 @@ public class Selector : MonoBehaviour
                 if (curr.tag == "Player" && curr.gameObject != transform.parent.gameObject)
                 {
                     selectedEnemy = curr.GetComponent<Player>();
-                    selectedCard = null;
-                    selectedDice = null;
-                }
-                if (curr.tag == "Card" && curr.transform.IsChildOf(transform.parent.GetChild(0)))
-                {
-                    selectedCard = curr.GetComponent<Spell>();
-                    selectedEnemy = null;
                     selectedDice = null;
                 }
                 if (curr.tag == "Dice")
                 {
                     selectedDice = curr;
-                    selectedCard = null;
                     selectedEnemy = null;
                 }
             }
@@ -52,7 +45,6 @@ public class Selector : MonoBehaviour
         else
         {
             selectedDice = null;
-            selectedCard = null;
         }
 
         MovePos();

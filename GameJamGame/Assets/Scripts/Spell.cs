@@ -10,6 +10,7 @@ public class Spell : MonoBehaviour
     private Manager manager;
     public int power;
     private int modSel, tarSel;
+    public GameObject selectEnemyTxt;
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>();
@@ -124,7 +125,13 @@ public class Spell : MonoBehaviour
     Player SelectEnemy()
     {
         Player enemy;
-        enemy = mouse.selectedEnemy;
+        selectEnemyTxt.SetActive(true);
+        mouse.selectedEnemy = null;
+        enemy = null;
+        while (!mouse.selectedEnemy.TryGetComponent<Player>(out Player p))
+        {
+            enemy = mouse.selectedEnemy;
+        }
         return enemy;
     }
     public void Cast()
