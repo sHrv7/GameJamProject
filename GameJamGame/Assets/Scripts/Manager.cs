@@ -8,7 +8,7 @@ public class Manager : MonoBehaviour
     public Sprite[] playerSprites = new Sprite[4];
     public GameObject[] players;
 
-    int currentPlayer = 0;
+    public int currentPlayer = 0;
 
     private void Start()
     {
@@ -16,19 +16,27 @@ public class Manager : MonoBehaviour
         Camera.main.transform.Rotate(new Vector3(0, 0, 90));
     }
 
+    public void EndTurn()
+    {
+        currentPlayer++;
+
+        players[(currentPlayer - 1) % 4].GetComponent<Player>().isOnTurn = false;
+        players[(currentPlayer - 1) % 4].GetComponent<Player>().hasRolled = false;
+        players[(currentPlayer - 1) % 4].GetComponent<Player>().stun -= 20;
+        players[currentPlayer % 4].GetComponent<Player>().isOnTurn = true;
+
+        Camera.main.transform.Rotate(new Vector3(0, 0, 90));
+
+
+    }
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            currentPlayer++;
-
-            players[currentPlayer % 4].GetComponent<Player>().isOnTurn = true;
-            players[(currentPlayer - 1) % 4].GetComponent<Player>().isOnTurn = false;
-
-            Camera.main.transform.Rotate(new Vector3(0, 0, 90));
+            //NextPlayer();
         }
     }
-
     public void SetUpGame(int numOfPlayers)
     {
         players = new GameObject[numOfPlayers];
@@ -37,7 +45,7 @@ public class Manager : MonoBehaviour
         {
             Vector3 playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, -0.2f); //<---- Naci ova racunica
 
-            players[i] = Instantiate(playerPrefab, playerPos * 5, Quaternion.Euler(0, 0, 90 + i * 90), transform);
+            players[i] = Instantiate(playerPrefab, playerPos * 10, Quaternion.Euler(0, 0, 90 + i * 90), transform);
             players[i].gameObject.name = "Player " + i;
 
             //playerov sprite

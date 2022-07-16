@@ -23,18 +23,29 @@ public class Selector : MonoBehaviour
             if (curr != null)
             {
                 if (curr.tag == "Player" && curr.gameObject != transform.parent.gameObject)
+                {
                     selectedEnemy = curr.GetComponent<Player>();
+                    selectedCard = null;
+                    selectedDice = null;
+                }
                 if (curr.tag == "Card" && curr.transform.IsChildOf(transform.parent.GetChild(0)))
+                {
                     selectedCard = curr.GetComponent<Spell>();
+                    selectedEnemy = null;
+                    selectedDice = null;
+                }
                 if (curr.tag == "Dice")
+                {
                     selectedDice = curr;
+                    selectedCard = null;
+                    selectedEnemy = null;
+                }
             }
 
             if (selectedDice != null)
             {
                 selectedDice.GetComponent<Collider>().isTrigger = true;
                 selectedDice.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-                selectedDice.GetComponent<Rigidbody>().useGravity = false;
                 selectedDice.transform.position = transform.position + Vector3.back;
             }
         }
@@ -43,6 +54,7 @@ public class Selector : MonoBehaviour
             selectedDice = null;
             selectedCard = null;
         }
+
         MovePos();
     }
     public void MovePos()

@@ -12,8 +12,13 @@ public class Player : MonoBehaviour
     private Transform playerHand;
     public Selector mouse;
     public int stun = 0;
+    public bool hasRolled = false;
+    private GameObject cubeSpawner;
+    private GameObject manager;
     void Start()
     {
+        manager = GameObject.FindGameObjectWithTag("Manager");
+        cubeSpawner = GameObject.FindGameObjectWithTag("Spawner");
         mouse = transform.GetChild(1).GetComponent<Selector>();
         slots = new GameObject[3];
         slotValues = new int[3];
@@ -29,21 +34,26 @@ public class Player : MonoBehaviour
         slotValues[0] = slots[0].GetComponent<Slot>().num;
         slotValues[1] = slots[1].GetComponent<Slot>().num;
         slotValues[2] = slots[2].GetComponent<Slot>().num;
-        if (isOnTurn && stun < 25)
-        {
-            mouse.gameObject.SetActive(true);
-        }
-        else
-        {
-            mouse.gameObject.SetActive(false);
-        }
 
-        if(!isOnTurn)
-            for(int i = 0; i < 3; i++)
-                this.transform.GetChild(i).gameObject.SetActive(false);
+        if (!isOnTurn)
+            for (int i = 0; i < 3; i++)
+                transform.GetChild(i).gameObject.SetActive(false);
         else
             for (int i = 0; i < 3; i++)
-                this.transform.GetChild(i).gameObject.SetActive(true);
+                transform.GetChild(i).gameObject.SetActive(true);
+
+        if (isOnTurn && stun < 25)
+        {
+            if (stun < 0)
+                stun = 0;
+            if (!hasRolled)
+            {
+                cubeSpawner.GetComponent<CubeTest>().RollDice();
+                cubeSpawner.GetComponent<CubeTest>().RollDice();
+                cubeSpawner.GetComponent<CubeTest>().RollDice();
+                hasRolled = true;
+            }
+        }
     }
     void CombineDice()
     {
@@ -53,9 +63,5 @@ public class Player : MonoBehaviour
     void CastSpell()
     {
         mouse.selectedCard.Cast();
-    }
-    public void EndTurn()
-    {
-        stun -= 20;
     }
 }
