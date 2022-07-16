@@ -9,10 +9,16 @@ public class Slot : MonoBehaviour
     bool hold = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Dice")
+        if (other.tag == "Dice" && currObj == null)
         {
-            Destroy(currObj);
             currObj = other.gameObject;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject == currObj.gameObject)
+        {
+            currObj = null;
         }
     }
     void Update()
