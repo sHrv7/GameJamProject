@@ -29,14 +29,6 @@ public class Manager : MonoBehaviour
 
 
     }
-    private void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            //NextPlayer();
-        }
-    }
     public void SetUpGame(int numOfPlayers)
     {
         players = new GameObject[numOfPlayers];

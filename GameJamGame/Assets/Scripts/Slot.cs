@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
-    private GameObject currObj;
+    public GameObject currObj;
     public int num;
     bool hold = false;
     private void OnTriggerEnter(Collider other)
