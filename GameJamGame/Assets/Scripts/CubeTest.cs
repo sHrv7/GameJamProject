@@ -11,15 +11,11 @@ public class CubeTest : MonoBehaviour
     Rigidbody rb;
     private void Start()
     {
-        InvokeRepeating("Roll", 0, 5f);
+        InvokeRepeating("diceRoll", 0, 5f);
     }
     // Update is called once per frame
-    void Roll()
-    {
-        diceRollNumber();
-    }
 
-    void diceRollNumber()
+    public void diceRoll()
     {
         if (transform.childCount != 0)
             Destroy(this.gameObject.transform.GetChild(0).gameObject);
