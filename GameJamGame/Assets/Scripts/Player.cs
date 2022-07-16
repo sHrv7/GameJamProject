@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     void CombineDice()
     {
         GameObject spellObj = Instantiate(spell, playerHand, false);
-        spellObj.GetComponent<Spell>().Create(slots[0], slots[1], slots[2]);
+        spellObj.GetComponent<Spell>().Create(slotValues[0], slotValues[1], slotValues[2]);
     }
     void CastSpell()
     {
