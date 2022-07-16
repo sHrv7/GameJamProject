@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject playerPrefab;
+    public Sprite[] playerSprites = new Sprite[4];
     public GameObject[] players;
 
     int currentPlayer = 0;
@@ -34,12 +35,13 @@ public class Manager : MonoBehaviour
 
         for (int i = 0; i < numOfPlayers; i++)
         {
-            Vector3 playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, -0.2f);
+            Vector3 playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, -0.2f); //<---- Naci ova racunica
 
-            players[i] = Instantiate(player, playerPos * 5, Quaternion.Euler(0, 0, 90 + i * 90), transform);
+            players[i] = Instantiate(playerPrefab, playerPos * 5, Quaternion.Euler(0, 0, 90 + i * 90), transform);
             players[i].gameObject.name = "Player " + i;
 
-            players[i].gameObject.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            //playerov sprite
+            players[i].gameObject.GetComponent<SpriteRenderer>().sprite = playerSprites[i];
         }
 
         players[0].GetComponent<Player>().isOnTurn = true;
