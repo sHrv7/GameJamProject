@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    int currentPlayer = 0;
+    int numOfPlayers = 2;
+
     public GameObject playerPrefab;
     public Sprite[] playerSprites = new Sprite[4];
     public GameObject[] players;
 
-    public int currentPlayer = 0;
-
     private void Start()
     {
-        SetUpGame(4);
+        SetUpGame(numOfPlayers);
         Camera.main.transform.Rotate(new Vector3(0, 0, 90));
     }
 
@@ -20,24 +21,42 @@ public class Manager : MonoBehaviour
     {
         currentPlayer++;
 
-        players[(currentPlayer - 1) % 4].GetComponent<Player>().isOnTurn = false;
-        players[(currentPlayer - 1) % 4].GetComponent<Player>().hasRolled = false;
-        players[(currentPlayer - 1) % 4].GetComponent<Player>().stun -= 20;
-        players[currentPlayer % 4].GetComponent<Player>().isOnTurn = true;
+        players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().isOnTurn = false;
+        players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().hasRolled = false;
+        players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().stun -= 20;
+        players[currentPlayer % numOfPlayers].GetComponent<Player>().isOnTurn = true;
 
-        Camera.main.transform.Rotate(new Vector3(0, 0, 90));
-
-
+        Camera.main.transform.Rotate(new Vector3(0, 0, 360 / numOfPlayers));
     }
     public void SetUpGame(int numOfPlayers)
     {
         players = new GameObject[numOfPlayers];
 
+        Vector3 playerPos = new Vector3(0, 0, 0);
+        Quaternion playerRotation = new Quaternion(0, 0, 0, 0);
+
         for (int i = 0; i < numOfPlayers; i++)
         {
-            Vector3 playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, -0.2f); //<---- Naci ova racunica
+            if (numOfPlayers == 2)
+            {
+                playerPos = new Vector3(i * - 2 + 1, 0, -0.2f);
+                playerRotation = Quaternion.Euler(0, 0, 90 + i * 180);   
+            }
 
-            players[i] = Instantiate(playerPrefab, playerPos * 10, Quaternion.Euler(0, 0, 90 + i * 90), transform);
+            else if(numOfPlayers == 3) //nemam vise zivaca za ovo usavrsavat, previse vremena sam potrosio
+            {
+                playerPos = new Vector3((i - 3) % 2, ((i - 1) % 2) * 0.5f, -0.2f);
+                playerRotation = Quaternion.Euler(0, 0, 90 + (i - 3) % 2 * 120);
+            }
+
+            else if (numOfPlayers == 4)
+            {
+                playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, -0.2f); //<---- Naci ova
+                playerRotation = Quaternion.Euler(0, 0, 90 + i * 90);
+            }
+
+            players[i] = Instantiate(playerPrefab, playerPos * 10, playerRotation, transform);
+
             players[i].gameObject.name = "Player " + i;
 
             //playerov sprite
