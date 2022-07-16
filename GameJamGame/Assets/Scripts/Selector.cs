@@ -24,6 +24,10 @@ public class Selector : MonoBehaviour
             else if (curr.tag == "Card" && curr.transform.IsChildOf(transform.parent.GetChild(0)))
                 selectedCard = curr.GetComponent<Spell>();
         }
+        MovePos();
+    }
+    public void MovePos()
+    {
         transform.GetComponent<Rigidbody>().MovePosition((Vector3)(Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 }

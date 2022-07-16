@@ -9,7 +9,7 @@ public class Spell : MonoBehaviour
     private Selector mouse;
     private Manager manager;
     public int power;
-    private int modSel;
+    private int modSel, tarSel;
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>();
@@ -17,7 +17,13 @@ public class Spell : MonoBehaviour
     public void Create(int target, int type, int mod)
     {
         modSel = mod;
-        players = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>().players;
+        tarSel = target;
+        int z = 0;
+        foreach (GameObject go in GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>().players)
+        {
+            players[z] = go.GetComponent<Player>();
+            z++;
+        }
         mouse = transform.parent.parent.GetComponent<Player>().mouse;
         SelectTarget(target);
         SelectType(type);
@@ -41,7 +47,6 @@ public class Spell : MonoBehaviour
                 targets.Add(enemy);
                 break;
             case 3:
-                targets.Add(SelectEnemy());
                 break;
             case 4:
                 targets.Add(transform.parent.parent.GetComponent<Player>());
@@ -124,6 +129,9 @@ public class Spell : MonoBehaviour
     }
     public void Cast()
     {
+        if (tarSel == 3)
+            targets.Add(SelectEnemy());
+
         foreach (Player target in targets)
         {
             switch (modSel)
