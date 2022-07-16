@@ -5,9 +5,7 @@ using UnityEngine;
 public class Slot : MonoBehaviour
 {
     private GameObject currObj;
-    //odreduje jel prvi, drugi ili treci slot
     public int num;
-    public int c;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Dice")
