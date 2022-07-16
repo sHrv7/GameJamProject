@@ -6,8 +6,6 @@ public class CubeTest : MonoBehaviour
 {
     public GameObject cubePrefab;
 
-    Vector3 cubeSpawnPosition = new Vector3(-11.4899998f, 5.01000023f, 3.07705688f);
-
     Rigidbody rb;
     private void Start()
     {
