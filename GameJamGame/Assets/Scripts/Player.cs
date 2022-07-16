@@ -23,7 +23,11 @@ public class Player : MonoBehaviour
     {
         if (isOnTurn && stun < 25)
         {
-
+            mouse.gameObject.SetActive(true);
+        }
+        else
+        {
+            mouse.gameObject.SetActive(false);
         }
     }
     void CombineDice()

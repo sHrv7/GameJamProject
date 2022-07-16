@@ -27,7 +27,7 @@ public class CubeTest : MonoBehaviour
         Instantiate(cubePrefab, Vector3.back * 10, Quaternion.identity, transform);
         rb = transform.GetChild(transform.childCount - 1).GetComponent<Rigidbody>();
 
-        rb.AddForce(new Vector3(Random.Range(-200, 201), Random.Range(-200, 201), 0));
+        rb.AddForce(new Vector3(Random.Range(-100, 101), Random.Range(-100, 101), 0));
         rb.AddTorque(new Vector3(Random.Range(0, 91), 0, Random.Range(0, 91)));
 
     }
