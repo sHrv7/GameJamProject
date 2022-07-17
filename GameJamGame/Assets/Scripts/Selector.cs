@@ -15,24 +15,10 @@ public class Selector : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (curr != null)
-        {
-            if (curr.TryGetComponent<Slot>(out Slot s))
-            {
-                s.showLegend = false;
-            }
-        }
         curr = null;
     }
     private void Update()
     {
-        if (curr != null)
-        {
-            if (curr.tag == "Slot")
-            {
-                curr.GetComponent<Slot>().showLegend = true;
-            }
-        }
         if (Input.GetKey(KeyCode.Mouse0))
         {
             if (curr != null)
