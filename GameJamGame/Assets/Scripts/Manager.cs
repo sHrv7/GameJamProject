@@ -5,11 +5,13 @@ using UnityEngine;
 public class Manager : MonoBehaviour
 {
     int currentPlayer = 0;
-    int numOfPlayers = 2;
+    int numOfPlayers = 3;
 
     public GameObject playerPrefab;
     public Sprite[] playerSprites = new Sprite[4];
     public GameObject[] players;
+
+    public float angle;
 
     private void Start()
     {
@@ -26,12 +28,42 @@ public class Manager : MonoBehaviour
         players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().stun -= 20;
         players[currentPlayer % numOfPlayers].GetComponent<Player>().isOnTurn = true;
 
-        Camera.main.transform.Rotate(new Vector3(0, 0, 360 / numOfPlayers));
-
-        foreach (GameObject dice in GameObject.FindGameObjectsWithTag("Dice"))
+        /*
+        if(numOfPlayers == 3)
         {
-            Destroy(dice);
+            if (currentPlayer % numOfPlayers == 0)
+                Camera.main.transform.Rotate(new Vector3(0, 0, 180));
+            else
+                Camera.main.transform.Rotate(new Vector3(0, 0, 90));
         }
+        else
+            Camera.main.transform.Rotate(new Vector3(0, 0, 360 / numOfPlayers));
+        */
+
+        angle *= Mathf.Rad2Deg;
+
+        if (numOfPlayers == 3)
+        {
+            if (currentPlayer % numOfPlayers == 0)
+                angle = Camera.main.transform.rotation.eulerAngles.z + 180.0f;
+            else
+                angle = Camera.main.transform.rotation.eulerAngles.z + 90.0f;
+        }
+        else
+            angle = Camera.main.transform.rotation.eulerAngles.z + 360 / numOfPlayers;
+
+        angle %= 360;
+        angle *= Mathf.Deg2Rad;
+
+        print(angle);
+        print(Camera.main.transform.rotation.eulerAngles.z);
+
+
+    }
+
+    private void Update()
+    {
+        Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, new Quaternion(0, 0, angle, 0), 0.5f * Time.deltaTime);
     }
     public void SetUpGame(int numOfPlayers)
     {
@@ -48,13 +80,7 @@ public class Manager : MonoBehaviour
                 playerRotation = Quaternion.Euler(0, 0, 90 + i * 180);
             }
 
-            else if (numOfPlayers == 3) //nemam vise zivaca za ovo usavrsavat, previse vremena sam potrosio
-            {
-                playerPos = new Vector3((i - 3) % 2, ((i - 1) % 2) * 0.5f, 0);
-                playerRotation = Quaternion.Euler(0, 0, 90 + (i - 3) % 2 * 120);
-            }
-
-            else if (numOfPlayers == 4)
+            else if (numOfPlayers >= 3)
             {
                 playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, 0); //<---- Naci ova
                 playerRotation = Quaternion.Euler(0, 0, 90 + i * 90);
