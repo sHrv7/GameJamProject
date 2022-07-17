@@ -19,7 +19,6 @@ public class Manager : MonoBehaviour
     {
         SetUpGame(numOfPlayers);
         Camera.main.transform.Rotate(new Vector3(0, 0, 90));
-        print("camera angle: " + Camera.main.transform.rotation.eulerAngles.z);
 
         angle = 90;
     }
@@ -49,9 +48,6 @@ public class Manager : MonoBehaviour
             }
             else
                 angle = Camera.main.transform.rotation.eulerAngles.z + 360 / numOfPlayers;
-
-            print("angle: " + angle);
-            print("camera angle: " + Camera.main.transform.rotation.eulerAngles.z);
 
             foreach (GameObject dice in GameObject.FindGameObjectsWithTag("Dice"))
             {
