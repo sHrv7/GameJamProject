@@ -13,6 +13,10 @@ public class Selector : MonoBehaviour
     {
         curr = collision.gameObject;
     }
+    private void OnTriggerExit(Collider other)
+    {
+        curr = null;
+    }
     private void Update()
     {
         if (Input.GetKey(KeyCode.Mouse0))

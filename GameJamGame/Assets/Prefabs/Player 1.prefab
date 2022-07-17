@@ -959,6 +959,7 @@ MonoBehaviour:
   mouse: {fileID: 0}
   stun: 0
   hasRolled: 0
+  turnDelay: 3
 --- !u!212 &8051553443850808787
 SpriteRenderer:
   m_ObjectHideFlags: 0
