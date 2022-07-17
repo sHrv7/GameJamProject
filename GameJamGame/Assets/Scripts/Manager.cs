@@ -73,7 +73,7 @@ public class Manager : MonoBehaviour
                 playerRotation = Quaternion.Euler(0, 0, 90 + i * 90);
             }
 
-            players[i] = Instantiate(playerPrefab, playerPos * 10, playerRotation, transform);
+            players[i] = Instantiate(playerPrefab, playerPos * 12, playerRotation, transform);
 
             players[i].gameObject.name = "Player " + i;
 
