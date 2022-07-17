@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public bool hasRolled = false;
     private GameObject cubeSpawner;
     private GameObject manager;
+
     void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager");
@@ -58,8 +59,8 @@ public class Player : MonoBehaviour
         spellObj.GetComponent<Spell>().Create(slots[0].GetComponent<Slot>().num, slots[1].GetComponent<Slot>().num, slots[2].GetComponent<Slot>().num);
         for (int i = 0; i < 3; i++)
         {
-            slots[i].GetComponent<Slot>().currObj = null;
             Destroy(slots[i].GetComponent<Slot>().currObj);
+            slots[i].GetComponent<Slot>().currObj = null;
         }
     }
 }
