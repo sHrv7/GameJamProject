@@ -11,7 +11,7 @@ public class Stats : MonoBehaviour
     void Start()
     {
         txt = GetComponent<Text>();
-        player = transform.parent.parent.parent.GetComponent<Player>();
+        player = transform.parent.parent.GetComponent<Player>();
     }
 
     void Update()

@@ -34,12 +34,17 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (!isOnTurn)
+        {
+            transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
             for (int i = 0; i < 3; i++)
                 transform.GetChild(i).gameObject.SetActive(false);
+        }
         else
+        {
+            transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
             for (int i = 0; i < 3; i++)
                 transform.GetChild(i).gameObject.SetActive(true);
-
+        }
         if (stun < 0)
             stun = 0;
         if (isOnTurn && stun < 25)
