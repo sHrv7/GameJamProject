@@ -8,6 +8,7 @@ TagManager:
   - Dice
   - Manager
   - Spawner
+  - SelectEnemyTxt
   layers:
   - Default
   - TransparentFX

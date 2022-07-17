@@ -13,10 +13,6 @@ public class Selector : MonoBehaviour
     {
         curr = collision.gameObject;
     }
-    private void OnTriggerExit(Collider other)
-    {
-        curr = null;
-    }
     private void Update()
     {
         if (Input.GetKey(KeyCode.Mouse0))
@@ -37,7 +33,6 @@ public class Selector : MonoBehaviour
 
             if (selectedDice != null)
             {
-                selectedDice.GetComponent<Collider>().isTrigger = true;
                 selectedDice.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                 selectedDice.transform.position = transform.position + Vector3.back;
             }

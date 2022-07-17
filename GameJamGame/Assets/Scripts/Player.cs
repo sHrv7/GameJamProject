@@ -31,10 +31,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        slotValues[0] = slots[0].GetComponent<Slot>().num;
-        slotValues[1] = slots[1].GetComponent<Slot>().num;
-        slotValues[2] = slots[2].GetComponent<Slot>().num;
-
         if (!isOnTurn)
             for (int i = 0; i < 3; i++)
                 transform.GetChild(i).gameObject.SetActive(false);
@@ -42,10 +38,10 @@ public class Player : MonoBehaviour
             for (int i = 0; i < 3; i++)
                 transform.GetChild(i).gameObject.SetActive(true);
 
+        if (stun < 0)
+            stun = 0;
         if (isOnTurn && stun < 25)
         {
-            if (stun < 0)
-                stun = 0;
             if (!hasRolled)
             {
                 cubeSpawner.GetComponent<CubeTest>().RollDice();
@@ -59,16 +55,11 @@ public class Player : MonoBehaviour
     {
         GameObject spellObj = Instantiate(spell, playerHand, false);
 
+        spellObj.GetComponent<Spell>().Create(slots[0].GetComponent<Slot>().num, slots[1].GetComponent<Slot>().num, slots[2].GetComponent<Slot>().num);
         for (int i = 0; i < 3; i++)
         {
             slots[i].GetComponent<Slot>().currObj = null;
             Destroy(slots[i].GetComponent<Slot>().currObj);
         }
-
-        spellObj.GetComponent<Spell>().Create(slotValues[0], slotValues[1], slotValues[2]);
-    }
-    void CastSpell()
-    {
-        mouse.selectedCard.Cast();
     }
 }

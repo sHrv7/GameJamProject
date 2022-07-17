@@ -27,6 +27,11 @@ public class Manager : MonoBehaviour
         players[currentPlayer % numOfPlayers].GetComponent<Player>().isOnTurn = true;
 
         Camera.main.transform.Rotate(new Vector3(0, 0, 360 / numOfPlayers));
+
+        foreach (GameObject dice in GameObject.FindGameObjectsWithTag("Dice"))
+        {
+            Destroy(dice);
+        }
     }
     public void SetUpGame(int numOfPlayers)
     {
@@ -39,19 +44,19 @@ public class Manager : MonoBehaviour
         {
             if (numOfPlayers == 2)
             {
-                playerPos = new Vector3(i * - 2 + 1, 0, -0.2f);
-                playerRotation = Quaternion.Euler(0, 0, 90 + i * 180);   
+                playerPos = new Vector3(i * -2 + 1, 0, -0f);
+                playerRotation = Quaternion.Euler(0, 0, 90 + i * 180);
             }
 
-            else if(numOfPlayers == 3) //nemam vise zivaca za ovo usavrsavat, previse vremena sam potrosio
+            else if (numOfPlayers == 3) //nemam vise zivaca za ovo usavrsavat, previse vremena sam potrosio
             {
-                playerPos = new Vector3((i - 3) % 2, ((i - 1) % 2) * 0.5f, -0.2f);
+                playerPos = new Vector3((i - 3) % 2, ((i - 1) % 2) * 0.5f, 0);
                 playerRotation = Quaternion.Euler(0, 0, 90 + (i - 3) % 2 * 120);
             }
 
             else if (numOfPlayers == 4)
             {
-                playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, -0.2f); //<---- Naci ova
+                playerPos = new Vector3((i - 1) % 2 * -1, (i - 2) % 2 * -1, 0); //<---- Naci ova
                 playerRotation = Quaternion.Euler(0, 0, 90 + i * 90);
             }
 
