@@ -35,12 +35,12 @@ public class DiceNum : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.right, out licemPremaDnu, 0.51f))
         {
             if (licemPremaDnu.transform.tag == "Plane")
-                diceNum = 4;
+                diceNum = 3;
         }
         if (Physics.Raycast(transform.position, -transform.right, out licemPremaDnu, 0.51f))
         {
             if (licemPremaDnu.transform.tag == "Plane")
-                diceNum = 3;
+                diceNum = 4;
         }
     }
 }
