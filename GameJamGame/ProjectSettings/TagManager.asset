@@ -9,6 +9,7 @@ TagManager:
   - Manager
   - Spawner
   - SelectEnemyTxt
+  - Slot
   layers:
   - Default
   - TransparentFX

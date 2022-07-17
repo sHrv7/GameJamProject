@@ -7,6 +7,7 @@ public class Slot : MonoBehaviour
     public GameObject currObj;
     public int num;
     bool hold = false;
+    public bool showLegend = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Dice" && currObj == null)
@@ -16,6 +17,16 @@ public class Slot : MonoBehaviour
     }
     void Update()
     {
+        if (showLegend)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+
         if (currObj != null)
         {
             if (hold)
