@@ -63,8 +63,8 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            slots[i].GetComponent<Slot>().currObj = null;
             Destroy(slots[i].GetComponent<Slot>().currObj);
+            slots[i].GetComponent<Slot>().currObj = null;
         }
 
         this.gameObject.GetComponent<Spell>().Create(slotValues[0], slotValues[1], slotValues[2]);
