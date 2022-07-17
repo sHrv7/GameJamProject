@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
         slots[2] = transform.GetChild(2).GetChild(2).gameObject;
         currHealth = startHealth;
         playerHand = transform.GetChild(0);
+        transform.GetChild(3).GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     void Update()
