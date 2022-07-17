@@ -10,10 +10,10 @@ public class Manager : MonoBehaviour
     public GameObject playerPrefab;
     public Sprite[] playerSprites = new Sprite[4];
     public GameObject[] players;
-
+    private bool canEndTurn = true;
     public float angle;
 
-    float rotationSpeed = 2f;
+    float rotationSpeed = 5f;
 
     private void Start()
     {
@@ -23,32 +23,40 @@ public class Manager : MonoBehaviour
 
         angle = 90;
     }
-
+    void EndTurnPermit()
+    {
+        canEndTurn = true;
+    }
     public void EndTurn()
     {
-        currentPlayer++;
-
-        players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().isOnTurn = false;
-        players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().hasRolled = false;
-        players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().stun -= 20;
-        players[currentPlayer % numOfPlayers].GetComponent<Player>().isOnTurn = true;
-
-        if (numOfPlayers == 3)
+        if (canEndTurn)
         {
-            if (currentPlayer % numOfPlayers == 0)
-                angle = Camera.main.transform.rotation.eulerAngles.z + 180.0f;
+            Invoke("EndTurnPermit", 2.75f);
+            canEndTurn = false;
+            currentPlayer++;
+
+            players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().isOnTurn = false;
+            players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().hasRolled = false;
+            players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().stun -= 20;
+            players[currentPlayer % numOfPlayers].GetComponent<Player>().isOnTurn = true;
+
+            if (numOfPlayers == 3)
+            {
+                if (currentPlayer % numOfPlayers == 0)
+                    angle = Camera.main.transform.rotation.eulerAngles.z + 180.0f;
+                else
+                    angle = Camera.main.transform.rotation.eulerAngles.z + 90.0f;
+            }
             else
-                angle = Camera.main.transform.rotation.eulerAngles.z + 90.0f;
-        }
-        else
-            angle = Camera.main.transform.rotation.eulerAngles.z + 360 / numOfPlayers;
+                angle = Camera.main.transform.rotation.eulerAngles.z + 360 / numOfPlayers;
 
-        print("angle: " + angle);
-        print("camera angle: " + Camera.main.transform.rotation.eulerAngles.z);
+            print("angle: " + angle);
+            print("camera angle: " + Camera.main.transform.rotation.eulerAngles.z);
 
-        foreach (GameObject dice in GameObject.FindGameObjectsWithTag("Dice"))
-        {
-            Destroy(dice);
+            foreach (GameObject dice in GameObject.FindGameObjectsWithTag("Dice"))
+            {
+                Destroy(dice);
+            }
         }
     }
 
