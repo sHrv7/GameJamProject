@@ -5,7 +5,7 @@ using UnityEngine;
 public class Manager : MonoBehaviour
 {
     int currentPlayer = 0;
-    int numOfPlayers = 3;
+    int numOfPlayers = 4;
 
     public GameObject playerPrefab;
     public Sprite[] playerSprites = new Sprite[4];
@@ -13,10 +13,15 @@ public class Manager : MonoBehaviour
 
     public float angle;
 
+    float rotationSpeed = 2f;
+
     private void Start()
     {
         SetUpGame(numOfPlayers);
         Camera.main.transform.Rotate(new Vector3(0, 0, 90));
+        print("camera angle: " + Camera.main.transform.rotation.eulerAngles.z);
+
+        angle = 90;
     }
 
     public void EndTurn()
@@ -27,21 +32,7 @@ public class Manager : MonoBehaviour
         players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().hasRolled = false;
         players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().stun -= 20;
         players[currentPlayer % numOfPlayers].GetComponent<Player>().isOnTurn = true;
-
-        /*
-        if(numOfPlayers == 3)
-        {
-            if (currentPlayer % numOfPlayers == 0)
-                Camera.main.transform.Rotate(new Vector3(0, 0, 180));
-            else
-                Camera.main.transform.Rotate(new Vector3(0, 0, 90));
-        }
-        else
-            Camera.main.transform.Rotate(new Vector3(0, 0, 360 / numOfPlayers));
-        */
-
-        angle *= Mathf.Rad2Deg;
-
+        
         if (numOfPlayers == 3)
         {
             if (currentPlayer % numOfPlayers == 0)
@@ -52,18 +43,14 @@ public class Manager : MonoBehaviour
         else
             angle = Camera.main.transform.rotation.eulerAngles.z + 360 / numOfPlayers;
 
-        angle %= 360;
-        angle *= Mathf.Deg2Rad;
-
-        print(angle);
-        print(Camera.main.transform.rotation.eulerAngles.z);
-
-
+        print("angle: " + angle);
+        print("camera angle: " + Camera.main.transform.rotation.eulerAngles.z);
     }
 
     private void Update()
     {
-        Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, new Quaternion(0, 0, angle, 0), 0.5f * Time.deltaTime);
+        var finalAngle = Quaternion.Euler(0, 0, angle);
+        Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, finalAngle, rotationSpeed * Time.deltaTime);
     }
     public void SetUpGame(int numOfPlayers)
     {
