@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public bool hasRolled = false;
     private GameObject cubeSpawner;
     private GameObject manager;
+    public float turnDelay = 3f;
 
     void Start()
     {
@@ -62,5 +63,7 @@ public class Player : MonoBehaviour
             Destroy(slots[i].GetComponent<Slot>().currObj);
             slots[i].GetComponent<Slot>().currObj = null;
         }
+
+        transform.parent.gameObject.GetComponent<Manager>().Invoke("EndTurn", turnDelay);
     }
 }
