@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Spell : MonoBehaviour
 {
@@ -11,27 +10,25 @@ public class Spell : MonoBehaviour
     private Manager manager;
     public int power;
     private int modSel, tarSel;
-    public Text selectEnemyTxt;
-    void Awake()
+    public GameObject selectEnemyTxt;
+    void Start()
     {
         manager = GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>();
-        mouse = transform.parent.parent.GetComponent<Player>().mouse;
-        selectEnemyTxt = GameObject.FindGameObjectWithTag("SelectEnemyTxt").GetComponent<Text>();
-        selectEnemyTxt.enabled = false;
     }
     public void Create(int target, int type, int mod)
     {
-        players = new Player[manager.players.Length];
         modSel = mod;
         tarSel = target;
-        for (int i = 0; i < manager.players.Length; i++)
+        int z = 0;
+        foreach (GameObject go in GameObject.FindGameObjectWithTag("Manager").GetComponent<Manager>().players)
         {
-            players[i] = manager.players[i].GetComponent<Player>();
+            players[z] = go.GetComponent<Player>();
+            z++;
         }
+        mouse = transform.parent.parent.GetComponent<Player>().mouse;
         SelectTarget(target);
         SelectType(type);
         SelectMod(mod);
-        Cast();
     }
 
     void SelectTarget(int tar)
@@ -128,14 +125,12 @@ public class Spell : MonoBehaviour
     Player SelectEnemy()
     {
         Player enemy;
-        selectEnemyTxt.enabled = true;
+        selectEnemyTxt.SetActive(true);
         mouse.selectedEnemy = null;
         enemy = null;
-        while (enemy == null)
+        while (!mouse.selectedEnemy.TryGetComponent<Player>(out Player p))
         {
-
             enemy = mouse.selectedEnemy;
-            Debug.Log(enemy);
         }
         return enemy;
     }
@@ -173,7 +168,5 @@ public class Spell : MonoBehaviour
                     break;
             }
         }
-        selectEnemyTxt.enabled = false;
-        Destroy(gameObject);
     }
 }
