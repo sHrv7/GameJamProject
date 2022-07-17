@@ -10,7 +10,7 @@ public class Spell : MonoBehaviour
     private Selector mouse;
     private Manager manager;
     public int power;
-    private int modSel, tarSel;
+    private int modSel, tarSel, typeSel;
     public Text selectEnemyTxt;
     void Awake()
     {
@@ -24,6 +24,7 @@ public class Spell : MonoBehaviour
         players = new Player[manager.players.Length];
         modSel = mod;
         tarSel = target;
+        typeSel = type;
         for (int i = 0; i < manager.players.Length; i++)
         {
             players[i] = manager.players[i].GetComponent<Player>();
@@ -32,6 +33,7 @@ public class Spell : MonoBehaviour
         SelectType(type);
         SelectMod(mod);
         Cast();
+        Debug.Log(target + " " + type + " " + mod);
     }
 
     void SelectTarget(int tar)
@@ -39,14 +41,14 @@ public class Spell : MonoBehaviour
         switch (tar)
         {
             case 1:
-                targets.Add(players[Random.Range(1, players.Length)]);
+                targets.Add(players[Random.Range(0, players.Length)]);
                 break;
             case 2:
                 Player enemy;
-                enemy = players[Random.Range(1, players.Length)];
+                enemy = players[Random.Range(0, players.Length)];
                 while (enemy == transform.parent.parent)
                 {
-                    enemy = players[Random.Range(1, players.Length)];
+                    enemy = players[Random.Range(0, players.Length)];
                 }
                 targets.Add(enemy);
                 break;
@@ -146,7 +148,7 @@ public class Spell : MonoBehaviour
 
         foreach (Player target in targets)
         {
-            switch (modSel)
+            switch (typeSel)
             {
                 case 1:
                     target.currHealth -= power;

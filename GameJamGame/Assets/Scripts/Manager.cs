@@ -32,7 +32,7 @@ public class Manager : MonoBehaviour
         players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().hasRolled = false;
         players[(currentPlayer - 1) % numOfPlayers].GetComponent<Player>().stun -= 20;
         players[currentPlayer % numOfPlayers].GetComponent<Player>().isOnTurn = true;
-        
+
         if (numOfPlayers == 3)
         {
             if (currentPlayer % numOfPlayers == 0)
@@ -45,6 +45,11 @@ public class Manager : MonoBehaviour
 
         print("angle: " + angle);
         print("camera angle: " + Camera.main.transform.rotation.eulerAngles.z);
+
+        foreach (GameObject dice in GameObject.FindGameObjectsWithTag("Dice"))
+        {
+            Destroy(dice);
+        }
     }
 
     private void Update()
