@@ -54,10 +54,12 @@ public class Player : MonoBehaviour
                 hasRolled = true;
             }
         }
+
+        print(currHealth);
     }
     public void CombineDice()
     {
-        GameObject spellObj = Instantiate(spell, playerHand, false);
+        //GameObject spellObj = Instantiate(spell, playerHand, false);
 
         for (int i = 0; i < 3; i++)
         {
@@ -65,10 +67,8 @@ public class Player : MonoBehaviour
             Destroy(slots[i].GetComponent<Slot>().currObj);
         }
 
-        spellObj.GetComponent<Spell>().Create(slotValues[0], slotValues[1], slotValues[2]);
-    }
-    void CastSpell()
-    {
-        mouse.selectedCard.Cast();
+        this.gameObject.GetComponent<Spell>().Create(slotValues[0], slotValues[1], slotValues[2]);
+        this.gameObject.GetComponent<Spell>().Cast();
+        print("t");
     }
 }
